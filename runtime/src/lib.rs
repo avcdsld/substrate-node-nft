@@ -280,6 +280,26 @@ impl pallet_scheduler::Trait for Runtime {
     type WeightInfo = ();
 }
 
+pub type Amount = i128;
+
+#[derive(Encode, Decode, Eq, PartialEq, Copy, Clone, RuntimeDebug, PartialOrd, Ord)]
+#[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
+pub enum CurrencyId {
+	Native,
+	DOT,
+	BTC,
+	AVCD,
+}
+
+impl orml_tokens::Trait for Runtime {
+	type Event = Event;
+	type Balance = Balance;
+	type Amount = Amount;
+	type CurrencyId = CurrencyId;
+	type OnReceived = ();
+	type WeightInfo = ();
+}
+
 parameter_types! {
 	pub const GetNativeCurrencyId: CurrencyId = CurrencyId::Native;
 }
@@ -311,6 +331,7 @@ construct_runtime!(
 		TransactionPayment: pallet_transaction_payment::{Module, Storage},
 		Sudo: pallet_sudo::{Module, Call, Config<T>, Storage, Event<T>},
 
+		Tokens: orml_tokens::{Module, Storage, Event<T>, Config<T>},
 		OrmlNft: orml_nft::{Module, Call},
 		Nft: pallet_nft::{Module, Storage, Call, Event<T>},
 		Scheduler: pallet_scheduler::{Module, Call, Storage, Event<T>},

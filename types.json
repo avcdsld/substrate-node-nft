@@ -1,4 +1,15 @@
 {
+    "Address": "AccountId",
+    "LookupSource": "AccountId",
+    "CurrencyId": {
+        "_enum": [
+            "Native",
+            "DOT",
+            "BTC",
+            "AVCD"
+        ]
+    },
+    "Amount": "i128",
     "ClassId": "u64",
     "TokenId": "u64",
     "ClassData": "u32",
