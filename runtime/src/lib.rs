@@ -41,6 +41,8 @@ pub use frame_support::{
 	},
 };
 
+pub use pallet_attendance;
+
 /// An index to a block.
 pub type BlockNumber = u32;
 
@@ -261,6 +263,9 @@ impl pallet_sudo::Trait for Runtime {
 	type Call = Call;
 }
 
+impl pallet_attendance::Trait for Runtime {
+	type Event = Event;
+}
 
 // Define the types required by the Scheduler pallet.
 parameter_types! {
@@ -331,6 +336,7 @@ construct_runtime!(
 		TransactionPayment: pallet_transaction_payment::{Module, Storage},
 		Sudo: pallet_sudo::{Module, Call, Config<T>, Storage, Event<T>},
 
+		AttendanceModule: pallet_attendance::{Module, Call, Storage, Event<T>},
 		Tokens: orml_tokens::{Module, Storage, Event<T>, Config<T>},
 		OrmlNft: orml_nft::{Module, Call},
 		Nft: pallet_nft::{Module, Storage, Call, Event<T>},
